@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class EventResponseDto {
+public class EventDto {
     private Long id; // 고유 식별자 (ID)
     private String task; // 할 일
     private String assignee; // 담당자명
