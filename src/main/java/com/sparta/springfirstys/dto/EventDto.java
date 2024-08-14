@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class EventDto {
     private Long id; // 고유 식별자 (ID)
     private String task; // 할 일
-    private String assignee; // 담당자명
+    private String manager; // 담당자명
     private LocalDateTime createdAt; // 작성일
     private LocalDateTime updatedAt; // 수정일
     private LocalDateTime startTime; // 시작 시간
