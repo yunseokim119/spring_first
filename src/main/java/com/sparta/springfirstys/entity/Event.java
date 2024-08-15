@@ -29,4 +29,14 @@ public class Event {
         this.startTime = LocalDateTime.now();
         this.endTime = LocalDateTime.now();
     }
+
+    public void update(EventRequestDto requestDto) {
+        this.task = requestDto.getTask();
+        this.manager = requestDto.getManager();
+        this.password = requestDto.getPassword();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.startTime = LocalDateTime.now();
+        this.endTime = LocalDateTime.now();
+    }
 }

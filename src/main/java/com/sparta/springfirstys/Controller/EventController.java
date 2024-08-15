@@ -38,6 +38,33 @@ public class EventController {
 
         return responseList;
     }
+
+    @PutMapping("/events/{id}")
+    public Long updateEvent(@PathVariable Long id, @RequestBody EventRequestDto requestDto){
+        // 해당 일정이 DB에 존재하는지 확인
+        if(eventList.containsKey(id)){
+            // 해당 일정 가져오기
+            Event event = eventList.get(id);
+
+            // 일정 수정
+            event.update(requestDto);
+            return event.getId();
+        } else {
+            throw new IllegalArgumentException("선택한 일정이 존재하지 않습니다.");
+        }
+    }
+
+    @DeleteMapping("/events/{id}")
+    public long deleteEvent(@PathVariable Long id){
+        // 해당 일정이 DB에 존재하는지 확인
+        if(eventList.containsKey(id)){
+            // 해당 일정 삭제하기
+            eventList.remove(id);
+            return id;
+        } else {
+            throw new IllegalArgumentException("선택한 일정이 존재하지 않습니다");
+        }
+    }
 }
 
 
