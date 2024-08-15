@@ -1,10 +1,15 @@
 package com.sparta.springfirstys.entity;
 
-import lombok.Data;
+import com.sparta.springfirstys.dto.EventRequestDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Event {
     private Long id; // 고유 식별자(ID)
     private String task; // 할 일
@@ -14,11 +19,14 @@ public class Event {
     private LocalDateTime updatedAt; // 수정일
     private LocalDateTime startTime; // 시작 시간
     private LocalDateTime endTime; // 종료 시간
-//
-//    protected void onCreate() {
-//        this.createdAt = LocalDateTime.now();
-//    }
-//    protected void onUpdate() {
-//        this.updatedAt = LocalDateTime.now();
-//    }
+
+    public Event(EventRequestDto requestDto) {
+        this.task = requestDto.getTask();
+        this.manager = requestDto.getManager();
+        this.password = requestDto.getPassword();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.startTime = LocalDateTime.now();
+        this.endTime = LocalDateTime.now();
+    }
 }

@@ -1,10 +1,10 @@
 package com.sparta.springfirstys.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 public class EventRequestDto {
     private String task; // 할 일
     private String manager; // 담당자명
