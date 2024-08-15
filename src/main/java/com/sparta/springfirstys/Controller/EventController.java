@@ -6,6 +6,7 @@ import com.sparta.springfirstys.entity.Event;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,24 +56,41 @@ public class EventController {
     }
 
     @PutMapping("/events/{id}")
-    public Long updateEvent(@PathVariable Long id, @RequestBody EventRequestDto requestDto){
+    public EventResponseDto updateEvent(@PathVariable Long id, @RequestBody EventRequestDto requestDto){
         // 해당 일정이 DB에 존재하는지 확인
         if(eventList.containsKey(id)){
             // 해당 일정 가져오기
             Event event = eventList.get(id);
 
-            // 일정 수정
-            event.update(requestDto);
-            return event.getId();
+            // 비밀번호 확인
+            if (!event.getPassword().equals(requestDto.getPassword())){
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            }
+
+            // 일정 수정 : 할일, 담당자명
+            event.setTask(requestDto.getTask());
+            event.setManager(requestDto.getManager());
+            event.setUpdatedAt(LocalDateTime.now()); // 수정일 갱신
+
+            // 수정된 일정의 정보 반환
+            return new EventResponseDto(event);
         } else {
             throw new IllegalArgumentException("선택한 일정이 존재하지 않습니다.");
         }
     }
 
     @DeleteMapping("/events/{id}")
-    public long deleteEvent(@PathVariable Long id){
+    public long deleteEvent(@PathVariable Long id, @RequestBody EventRequestDto requestDto){
         // 해당 일정이 DB에 존재하는지 확인
         if(eventList.containsKey(id)){
+            // 해당 일정 가져오기
+            Event event = eventList.get(id);
+
+            // 비밀번호 확인
+            if (!event.getPassword().equals(requestDto.getPassword())){
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            }
+
             // 해당 일정 삭제하기
             eventList.remove(id);
             return id;
