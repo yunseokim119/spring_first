@@ -5,7 +5,10 @@ import com.sparta.springfirstys.dto.EventResponseDto;
 import com.sparta.springfirstys.entity.Event;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -31,10 +34,22 @@ public class EventController {
     }
 
     @GetMapping("/events")
-    public List<EventResponseDto> getEvent(){
+    public List<EventResponseDto> getEvent(
+            // @RequestParam으로 updatedAt(수정일)과 manager(담당자명)를 전달
+            @RequestParam(required = false)String updateAt,
+            @RequestParam(required = false)String manager) {
         // Map to list
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // LocalDate 형식으로 변환된 수정일 필터를 사용하여 조건을 적용
+        LocalDate filterDate = updateAt != null ? LocalDate.parse(updateAt, formatter) : null;
+
         List<EventResponseDto> responseList = eventList.values().stream()
-                .map(EventResponseDto::new).toList();
+                // stream()을 사용하여 eventList의 모든 Event 객체를 필터링
+                .filter(event -> (filterDate == null || event.getUpdatedAt().toLocalDate().equals(filterDate)))
+                .filter(event -> (manager == null || event.getManager().equalsIgnoreCase(manager)))
+                .sorted(Comparator.comparing(Event::getUpdatedAt).reversed())
+                .map(EventResponseDto::new)
+                .collect(Collectors.toList());
 
         return responseList;
     }
@@ -66,42 +81,3 @@ public class EventController {
         }
     }
 }
-
-
-
-/*
-@RestController
-@RequestMapping("/api/events") //사용자 일정 조회
-public class EventController {
-    private final EventService eventService;
-
-    public EventController(EventService eventService) {
-        this.eventService = eventService;
-    }
-
-    // 1. 새로운 일정 등록 (POST)
-     @PostMapping
-    public ResponseEntity<Void> createEvent(@RequestBody EventRequestDto eventRequestDto) {
-        eventService.createEvent(eventRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    // 2. 선택한 일정 조회 (GET)
-    @GetMapping("/{id}")
-    public ResponseEntity<EventResponseDto> getEvent(@PathVariable long id) {
-        EventResponseDto event = eventService.getEvent(id);
-        if (event != null) {
-            return new ResponseEntity<>(event, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-    @GetMapping
-    public ResponseEntity<List<EventResponseDto>> getEvents(
-            @RequestParam(required = false) String updatedAt,
-            @RequestParam(required = false) String manager) {
-        LocalDate updatedDate = updatedAt != null ? LocalDate.parse(updatedAt) : null;
-        List<EventResponseDto> events = eventService.getEvents(updatedDate, manager);
-        return new ResponseEntity<>(events, HttpStatus.OK);
-    }
-}*/
