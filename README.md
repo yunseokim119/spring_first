@@ -220,3 +220,22 @@ Event
 
 - updated_at: 일정이 마지막으로 수정된 시간입니다.
 
+## 프로젝트 구조
+    src/main/java/com/sparta/springfirstys/
+    │
+    ├── controller/
+    │   └── EventController.java
+    │
+    ├── service/
+    │   └── EventService.java
+    │
+    ├── repository/
+    │   └── EventRepository.java
+    │
+    ├── dto/
+    │   ├── EventRequestDto.java
+    │   └── EventResponseDto.java
+    │
+    └── entity/
+        └── Event.java
+
