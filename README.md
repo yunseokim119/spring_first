@@ -12,7 +12,7 @@
 Request Body
 
     {
-    "title": "팀 회의",
+    "task": "팀 회의",
     "manager": "김지훈",
     "startTime": "2024-08-20T10:00:00",
     "endTime": "2024-08-20T12:00:00",
@@ -23,7 +23,7 @@ Response Body
 
     {
     "id": 1,
-    "title": "팀 회의",
+    "task": "팀 회의",
     "manager": "김지훈",
     "startTime": "2024-08-20T10:00:00",
     "endTime": "2024-08-20T12:00:00",
@@ -55,7 +55,7 @@ Response Body
     [
     {
         "id": 1,
-        "title": "팀 회의",
+        "task": "팀 회의",
         "manager": "김지훈",
         "startTime": "2024-08-20T10:00:00",
         "endTime": "2024-08-20T12:00:00",
@@ -64,7 +64,7 @@ Response Body
     },
     {
         "id": 2,
-        "title": "프로젝트 발표",
+        "task": "프로젝트 발표",
         "manager": "이수진",
         "startTime": "2024-08-21T14:00:00",
         "endTime": "2024-08-21T15:30:00",
@@ -88,7 +88,7 @@ Response Body
 
     {
     "id": 1,
-    "title": "팀 회의",
+    "task": "팀 회의",
     "manager": "김지훈",
     "startTime": "2024-08-20T10:00:00",
     "endTime": "2024-08-20T12:00:00",
@@ -112,7 +112,7 @@ Response Body
 Request Body
 
     {
-    "title": "새로운 팀 회의",
+    "task": "새로운 팀 회의",
     "manager": "김지훈",
     "password": "password123"
     }
@@ -121,7 +121,7 @@ Response Body
 
     {
     "id": 1,
-    "title": "새로운 팀 회의",
+    "task": "새로운 팀 회의",
     "manager": "김지훈",
     "startTime": "2024-08-20T10:00:00",
     "endTime": "2024-08-20T12:00:00",
@@ -170,7 +170,7 @@ Event
 
 - id (BIGINT): 고유 식별자
 
-- title (VARCHAR): 일정 제목
+- task (VARCHAR): 일정 제목
 
 - manager (VARCHAR): 담당자명
 
@@ -193,7 +193,7 @@ Event
     |        Event         |
     +----------------------+
     | id (BIGINT)          |
-    | title (VARCHAR)      |
+    | task (VARCHAR)      |
     | manager (VARCHAR)    |
     | start_time (DATETIME)|
     | end_time (DATETIME)  |
@@ -206,7 +206,7 @@ Event
 
 - id: 각 일정의 고유 식별자입니다.
 
-- title: 일정을 설명하는 제목입니다.
+- task: 일정을 설명하는 제목입니다.
 
 - manager: 해당 일정을 관리하는 담당자의 이름입니다.
 
