@@ -11,8 +11,8 @@ create table Event
     updated_at datetime     not null
 );
 
-INSERT INTO Event (title, manager, start_time, end_time, password, created_at, updated_at) VALUES
+INSERT INTO Event (task, manager, start_time, end_time, password, created_at, updated_at) VALUES
 ('팀 회의', '김지훈', '2024-08-20 10:00:00', '2024-08-20 12:00:00', 'password123', NOW(), NOW());
 
-INSERT INTO Event (title, manager, start_time, end_time, password, created_at, updated_at) VALUES
+INSERT INTO Event (task, manager, start_time, end_time, password, created_at, updated_at) VALUES
 ('프로젝트 발표', '이수진', '2024-08-21 14:00:00', '2024-08-21 15:30:00', 'project2024', NOW(), NOW());
